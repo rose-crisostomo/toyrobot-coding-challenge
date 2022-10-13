@@ -27,7 +27,7 @@ void MovementProcessor::InitializeDirections()
     north->name = DirectionConstants::NORTH;
     north->move = [this](Coordinates* c)
         {
-            if (c->y != Limits.high)
+            if (c->y != boundary.high)
             {
                 ++(c->y);
             }
@@ -38,7 +38,7 @@ void MovementProcessor::InitializeDirections()
     east->name = DirectionConstants::EAST;
     east->move = [this](Coordinates* c)
         {
-            if (c->x != Limits.high)
+            if (c->x != boundary.high)
             {
                 ++(c->x);
             }
@@ -49,7 +49,7 @@ void MovementProcessor::InitializeDirections()
     south->name = DirectionConstants::SOUTH;
     south->move = [this](Coordinates* c)
         {
-            if (c->y != Limits.low)
+            if (c->y != boundary.low)
             {
                 --(c->y);
             }
@@ -60,7 +60,7 @@ void MovementProcessor::InitializeDirections()
     west->name = DirectionConstants::WEST;
     west->move = [this](Coordinates* c)
         {
-            if (c->x != Limits.low)
+            if (c->x != boundary.low)
             {
                 --(c->x);
             }
@@ -79,7 +79,7 @@ std::shared_ptr<Direction> MovementProcessor::GetDirectionObj(std::string const&
     }
 }
 
-Boundary const& MovementProcessor::GetLimits()
+Boundary const& MovementProcessor::GetBoundary()
 {
-    return Limits;
+    return boundary;
 }

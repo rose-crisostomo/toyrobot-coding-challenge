@@ -13,13 +13,13 @@ public:
     MovementProcessor();
 
     std::shared_ptr<Direction> GetDirectionObj(std::string const& dir);
-    Boundary const& GetLimits();
+    Boundary const& GetBoundary();
 
 private:
     void InitializeDirections();
     void InitializeDirectionMap();
 
-    Boundary Limits { 0, 4 };
+    Boundary boundary { 0, 4 };
     std::map<std::string, std::shared_ptr<Direction>> directionMap;
 };
 

@@ -39,8 +39,8 @@ public:
 private:
     bool IsCoordinateWithinBoard(int const& c)
     {
-        auto const& limits = GetLimits();
-        return (c <= limits.high) && (c >= limits.low);
+        auto const& boundary = GetBoundary();
+        return (c <= boundary.high) && (c >= boundary.low);
     }
 };
 

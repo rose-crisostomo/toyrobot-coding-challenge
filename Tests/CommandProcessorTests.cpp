@@ -52,12 +52,12 @@ TEST_CASE("Toy Robot should not be placed outside the board", "[CommandProcessor
     ToyRobot toyRobot;
     CommandProcessor cmdProc;
     MovementProcessor moveProc;
-    auto const& limits = moveProc.GetLimits();
+    auto const& boundary = moveProc.GetBoundary();
 
-    cmdProc.ExecuteCommand(toyRobot, CreatePlaceCommand(limits.low - 1, limits.low - 1, DirectionConstants::NORTH));
+    cmdProc.ExecuteCommand(toyRobot, CreatePlaceCommand(boundary.low - 1, boundary.low - 1, DirectionConstants::NORTH));
     CHECK(toyRobot.currDir == nullptr);
 
-    cmdProc.ExecuteCommand(toyRobot, CreatePlaceCommand(limits.high + 1, limits.high + 1, DirectionConstants::NORTH));
+    cmdProc.ExecuteCommand(toyRobot, CreatePlaceCommand(boundary.high + 1, boundary.high + 1, DirectionConstants::NORTH));
     CHECK(toyRobot.currDir == nullptr);
 }
 
@@ -105,7 +105,7 @@ TEST_CASE("MOVE should move the robot one unit forward", "[CommandProcessor]")
     ToyRobot toyRobot;
     CommandProcessor cmdProc;
     MovementProcessor moveProc;
-    auto const& limits = moveProc.GetLimits();
+    auto const& boundary = moveProc.GetBoundary();
 
     int x = 0, y = 0;
 
@@ -115,30 +115,30 @@ TEST_CASE("MOVE should move the robot one unit forward", "[CommandProcessor]")
 
     SECTION("Robot should not fall off the board facing NORTH")
     {
-        cmdProc.ExecuteCommand(toyRobot, CreatePlaceCommand(x, limits.high, DirectionConstants::NORTH));
+        cmdProc.ExecuteCommand(toyRobot, CreatePlaceCommand(x, boundary.high, DirectionConstants::NORTH));
         cmdProc.ExecuteCommand(toyRobot, CommandConstants::MOVE);
-        CHECK(toyRobot.currPos.y == limits.high);
+        CHECK(toyRobot.currPos.y == boundary.high);
     }
 
     SECTION("Robot should not fall off the board facing EAST")
     {
-        cmdProc.ExecuteCommand(toyRobot, CreatePlaceCommand(limits.high, y, DirectionConstants::EAST));
+        cmdProc.ExecuteCommand(toyRobot, CreatePlaceCommand(boundary.high, y, DirectionConstants::EAST));
         cmdProc.ExecuteCommand(toyRobot, CommandConstants::MOVE);
-        CHECK(toyRobot.currPos.x == limits.high);
+        CHECK(toyRobot.currPos.x == boundary.high);
     }
 
     SECTION("Robot should not fall off the board facing SOUTH")
     {
-        cmdProc.ExecuteCommand(toyRobot, CreatePlaceCommand(x, limits.low, DirectionConstants::SOUTH));
+        cmdProc.ExecuteCommand(toyRobot, CreatePlaceCommand(x, boundary.low, DirectionConstants::SOUTH));
         cmdProc.ExecuteCommand(toyRobot, CommandConstants::MOVE);
-        CHECK(toyRobot.currPos.y == limits.low);
+        CHECK(toyRobot.currPos.y == boundary.low);
     }
 
     SECTION("Robot should not fall off the board facing WEST")
     {
-        cmdProc.ExecuteCommand(toyRobot, CreatePlaceCommand(limits.low, y, DirectionConstants::WEST));
+        cmdProc.ExecuteCommand(toyRobot, CreatePlaceCommand(boundary.low, y, DirectionConstants::WEST));
         cmdProc.ExecuteCommand(toyRobot, CommandConstants::MOVE);
-        CHECK(toyRobot.currPos.x == limits.low);
+        CHECK(toyRobot.currPos.x == boundary.low);
     }
 }
 

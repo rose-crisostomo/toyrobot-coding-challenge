@@ -1,7 +1,7 @@
 #include <iostream>
+#include <regex>
 #include "CommandProcessor.hpp"
 #include "Constants.hpp"
-#include <regex>
 #include "StringUtil.hpp"
 
 CommandProcessor::CommandProcessor()
@@ -37,7 +37,7 @@ void CommandProcessor::ExecuteCommand(ToyRobot& toyRobot, std::string const& inp
 
     std::string command = input;
 
-    transform(command.begin(), command.end(), command.begin(), ::toupper);
+    StringUtil::to_upper(command);
     StringUtil::trim(command);
 
     auto parsedCmd = ExtractCommandAndArgs(command, cmdPattern);

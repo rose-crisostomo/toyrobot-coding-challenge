@@ -16,18 +16,3 @@ std::vector<std::string> ParserUtil::ParseFileIntoList(std::string const& filena
 
     return ret;
 }
-
-std::vector<std::string> ParserUtil::ParseStringWithDelimiter(std::string const& in, char const& delimiter)
-{
-    std::vector<std::string> ret;
-
-    std::stringstream ss(in);
-    while(ss.good())
-    {
-        std::string substr;
-        getline(ss, substr, delimiter);
-        ret.push_back(substr);
-    }
-
-    return ret;
-}
